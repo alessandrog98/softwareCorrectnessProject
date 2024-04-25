@@ -100,10 +100,5 @@ public class Setenv extends NativeCFG {
 					original);
 			return readerValue.lub(nilValue);
 		}
-
-		@Override
-		protected int compareSameClassAndParams(Statement o) {
-			return 0; // nothing else to compare
-		}
 	}
 }

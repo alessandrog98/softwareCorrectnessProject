@@ -35,13 +35,13 @@ public class CloseBlock extends Statement {
 	}
 
 	@Override
-	public <V> boolean accept(GraphVisitor<CFG, Statement, Edge, V> visitor, V tool) {
-		return visitor.visit(tool, getCFG(), this);
+	public int setOffset(int offset) {
+		return this.offset = offset;
 	}
 
 	@Override
-	protected int compareSameClass(Statement o) {
-		return 0; // nothing else to compare
+	public <V> boolean accept(GraphVisitor<CFG, Statement, Edge, V> visitor, V tool) {
+		return true;
 	}
 
 	@Override

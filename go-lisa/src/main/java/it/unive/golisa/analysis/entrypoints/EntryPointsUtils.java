@@ -1,8 +1,7 @@
 package it.unive.golisa.analysis.entrypoints;
 
-import it.unive.golisa.loader.annotation.AnnotationSet;
 import it.unive.golisa.loader.annotation.CodeAnnotation;
-import it.unive.golisa.loader.annotation.sets.TaintAnnotationSet;
+import it.unive.golisa.loader.annotation.sets.NonDeterminismAnnotationSet;
 import it.unive.lisa.program.Program;
 import it.unive.lisa.program.Unit;
 import it.unive.lisa.program.cfg.CFG;
@@ -37,11 +36,11 @@ public class EntryPointsUtils {
 	 */
 	public static boolean containsPossibleEntryPointsForAnalysis(
 			Set<Pair<CodeAnnotation, CodeMemberDescriptor>> appliedAnnotations,
-			TaintAnnotationSet... annotationSets) {
+			NonDeterminismAnnotationSet... annotationSets) {
 
 		boolean atLeastOneSource = false;
 		boolean atLeastOneDestination = false;
-		for (TaintAnnotationSet as : annotationSets) {
+		for (NonDeterminismAnnotationSet as : annotationSets) {
 			Set<? extends CodeAnnotation> sources = as.getAnnotationForSources();
 			Set<? extends CodeAnnotation> destinations = as.getAnnotationForDestinations();
 
@@ -68,18 +67,16 @@ public class EntryPointsUtils {
 	 */
 	private static Set<CodeMemberDescriptor> getDescriptorOfPossibleEntryPointsForAnalysis(
 			Set<Pair<CodeAnnotation, CodeMemberDescriptor>> appliedAnnotations,
-			AnnotationSet... annotationSets) {
+			NonDeterminismAnnotationSet... annotationSets) {
 
 		Set<CodeMemberDescriptor> descriptors = new HashSet<>();
-		for (AnnotationSet as : annotationSets) {
-			if (as instanceof TaintAnnotationSet) {
-				Set<? extends CodeAnnotation> sources = ((TaintAnnotationSet) as).getAnnotationForSources();
-				appliedAnnotations.stream()
-						.forEach(e -> {
-							if (sources.contains(e.getLeft()))
-								descriptors.add(e.getRight());
-						});
-			}
+		for (NonDeterminismAnnotationSet as : annotationSets) {
+			Set<? extends CodeAnnotation> sources = as.getAnnotationForSources();
+			appliedAnnotations.stream()
+					.forEach(e -> {
+						if (sources.contains(e.getLeft()))
+							descriptors.add(e.getRight());
+					});
 		}
 
 		return descriptors;
@@ -97,7 +94,7 @@ public class EntryPointsUtils {
 	 */
 	public static Set<CFG> computeEntryPointSetFromPossibleEntryPointsForAnalysis(Program program,
 			Set<Pair<CodeAnnotation, CodeMemberDescriptor>> appliedAnnotations,
-			AnnotationSet... annotationSets) {
+			NonDeterminismAnnotationSet... annotationSets) {
 
 		Set<CFG> set = new HashSet<>();
 

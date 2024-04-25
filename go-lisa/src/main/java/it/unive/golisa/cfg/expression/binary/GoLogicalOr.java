@@ -10,7 +10,6 @@ import it.unive.lisa.interprocedural.InterproceduralAnalysis;
 import it.unive.lisa.program.SourceCodeLocation;
 import it.unive.lisa.program.cfg.CFG;
 import it.unive.lisa.program.cfg.statement.Expression;
-import it.unive.lisa.program.cfg.statement.Statement;
 import it.unive.lisa.symbolic.SymbolicExpression;
 import it.unive.lisa.symbolic.value.BinaryExpression;
 import it.unive.lisa.symbolic.value.operator.binary.LogicalOr;
@@ -33,11 +32,6 @@ public class GoLogicalOr extends it.unive.lisa.program.cfg.statement.BinaryExpre
 	 */
 	public GoLogicalOr(CFG cfg, SourceCodeLocation location, Expression left, Expression right) {
 		super(cfg, location, "||", GoBoolType.INSTANCE, left, right);
-	}
-
-	@Override
-	protected int compareSameClassAndParams(Statement o) {
-		return 0; // nothing else to compare
 	}
 
 	@Override

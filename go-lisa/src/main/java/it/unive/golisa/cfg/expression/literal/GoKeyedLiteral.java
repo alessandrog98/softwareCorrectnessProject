@@ -20,7 +20,6 @@ import it.unive.lisa.program.cfg.CFG;
 import it.unive.lisa.program.cfg.VariableTableEntry;
 import it.unive.lisa.program.cfg.statement.Expression;
 import it.unive.lisa.program.cfg.statement.NaryExpression;
-import it.unive.lisa.program.cfg.statement.Statement;
 import it.unive.lisa.program.cfg.statement.VariableRef;
 import it.unive.lisa.symbolic.SymbolicExpression;
 import it.unive.lisa.symbolic.heap.AccessChild;
@@ -56,11 +55,6 @@ public class GoKeyedLiteral extends NaryExpression {
 			Type staticType) {
 		super(cfg, location, "keyedLiteral(" + staticType + ")", staticType, values);
 		this.keys = keys;
-	}
-
-	@Override
-	protected int compareSameClassAndParams(Statement o) {
-		return 0; // nothing else to compare
 	}
 
 	private Variable getVariable(VariableRef varRef) {

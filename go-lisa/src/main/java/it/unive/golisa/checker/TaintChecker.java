@@ -42,19 +42,6 @@ public class TaintChecker implements
 		SemanticCheck<
 				SimpleAbstractState<PointBasedHeap, ValueEnvironment<TaintDomain>, TypeEnvironment<InferredTypes>>> {
 
-	
-	
-	private final String message;
-	
-	public TaintChecker(String message) {
-		this.message = message;
-	}
-	
-	public TaintChecker() {
-		this.message = "";
-	}
-
-
 	/**
 	 * Sink annotation.
 	 */
@@ -136,7 +123,7 @@ public class TaintChecker implements
 									ValueEnvironment<TaintDomain> valueState = state.getState().getValueState();
 									if (valueState.eval((ValueExpression) s, node, state.getState())
 											.isTainted())
-										tool.warnOn(call, message + "The value passed for the " + StringUtilities.ordinal(i + 1)
+										tool.warnOn(call, "The value passed for the " + StringUtilities.ordinal(i + 1)
 												+ " parameter of this call is tainted, and it reaches the sink at parameter '"
 												+ parameters[i].getName() + "' of " + resolved.getFullTargetName());
 								}
@@ -168,7 +155,7 @@ public class TaintChecker implements
 
 									if (valueState.eval((ValueExpression) s, node, state.getState())
 											.isTainted())
-										tool.warnOn(call, message + "The value passed for the " + StringUtilities.ordinal(i + 1)
+										tool.warnOn(call, "The value passed for the " + StringUtilities.ordinal(i + 1)
 												+ " parameter of this call is tainted, and it reaches the sink at parameter '"
 												+ parameters[i].getName() + "' of " + resolved.getFullTargetName());
 								}
